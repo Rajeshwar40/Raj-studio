@@ -1,327 +1,323 @@
-<h1 align="center">ACE-Step 1.5</h1>
-<h1 align="center">Pushing the Boundaries of Open-Source Music Generation</h1>
-<p align="center">
-    <a href="https://acemusic.ai">ACEMusic</a> |
-    <a href="https://ace-step.github.io/ace-step-v1.5.github.io/">Project</a> |
-    <a href="https://huggingface.co/ACE-Step/Ace-Step1.5">Hugging Face</a> |
-    <a href="https://modelscope.cn/models/ACE-Step/Ace-Step1.5">ModelScope</a> |
-    <a href="https://huggingface.co/spaces/ACE-Step/Ace-Step-v1.5">Space Demo</a> |
-    <a href="https://discord.gg/PeWDxrkdj7">Discord</a> |
-    <a href="https://arxiv.org/abs/2602.00744">Technical Report</a> |
-    <a href="https://github.com/ace-step/awesome-ace-step">Awesome ACE-Step</a>
-</p>
+<div align="center">
 
-<p align="center">
-    <img src="./assets/organization_logos.png" height="80" alt="StepFun Logo" style="vertical-align: middle;">
-    &nbsp;&nbsp;
-    <a href="https://acemusic.ai">
-        <img src="./assets/acemusic-logo.svg" height="57" alt="ACEMusic - Try ACE-Step Online" style="vertical-align: middle; position: relative; top: 2px;">
-    </a>
-</p>
+# 🎛️ Raj Studio
 
-## 📰 News
+**A modern, dark-studio web interface for AI music generation, built on ACE-Step V1.5.**
 
-> 🎵 **Want a faster & more stable experience? Try [acemusic.ai](https://acemusic.ai) — 100% free!**
+_Developed by [Rajeshwar Singh](https://github.com/Rajeshwar40)_
 
-- **[2026-04-02] 🎉 ACE-Step 1.5 XL (4B DiT) Released!** — We introduce the XL series with a 4B-parameter DiT decoder for higher audio quality. Three variants available: [xl-base](https://huggingface.co/ACE-Step/acestep-v15-xl-base), [xl-sft](https://huggingface.co/ACE-Step/acestep-v15-xl-sft), [xl-turbo](https://huggingface.co/ACE-Step/acestep-v15-xl-turbo). Requires ≥12GB VRAM (with offload), ≥20GB recommended. All LM models fully compatible. See [Model Zoo](#-model-zoo) for details.
+[![Frontend CI](https://github.com/Rajeshwar40/Raj-studio/actions/workflows/frontend.yml/badge.svg)](https://github.com/Rajeshwar40/Raj-studio/actions/workflows/frontend.yml)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
+[![Frontend](https://img.shields.io/badge/frontend-React_18_·_TypeScript_·_Vite_·_Tailwind-8b5cf6)](frontend/)
+[![Backend](https://img.shields.io/badge/backend-FastAPI_·_ACE--Step_V1.5-6366f1)](acestep/api_server.py)
 
-## Table of Contents
+![Raj Studio](docs/screenshots/01-studio.png)
 
-- [📰 News](#-news)
-- [✨ Features](#-features)
-- [⚡ Quick Start](#-quick-start)
-- [🚀 Launch Scripts](#-launch-scripts)
-- [📚 Documentation](#-documentation)
-- [📖 Tutorial](#-tutorial)
-- [🏗️ Architecture](#️-architecture)
-- [🦁 Model Zoo](#-model-zoo)
-- [🔬 Benchmark](#-benchmark)
+</div>
 
-## 📝 Abstract
-🚀 We present ACE-Step v1.5, a highly efficient open-source music foundation model that brings commercial-grade generation to consumer hardware. On commonly used evaluation metrics, ACE-Step v1.5 achieves quality beyond most commercial music models while remaining extremely fast—under 2 seconds per full song on an A100 and under 10 seconds on an RTX 3090. The model runs locally with less than 4GB of VRAM, and supports lightweight personalization: users can train a LoRA from just a few songs to capture their own style.
+---
 
-🌉 At its core lies a novel hybrid architecture where the Language Model (LM) functions as an omni-capable planner: it transforms simple user queries into comprehensive song blueprints—scaling from short loops to 10-minute compositions—while synthesizing metadata, lyrics, and captions via Chain-of-Thought to guide the Diffusion Transformer (DiT). ⚡ Uniquely, this alignment is achieved through intrinsic reinforcement learning relying solely on the model's internal mechanisms, thereby eliminating the biases inherent in external reward models or human preferences. 🎚️
+## ✨ What is Raj Studio?
 
-🔮 Beyond standard synthesis, ACE-Step v1.5 unifies precise stylistic control with versatile editing capabilities—such as cover generation, repainting, and vocal-to-BGM conversion—while maintaining strict adherence to prompts across 50+ languages. This paves the way for powerful tools that seamlessly integrate into the creative workflows of music artists, producers, and content creators. 🎸
+Raj Studio wraps the **ACE-Step V1.5** open-source music-generation model in a polished, browser-based studio experience:
 
+- 🎵 **Text → Music** — describe a song, get a full track
+- 🎤 **Lyrics-first workflow** — paste lyrics, get a matching arrangement
+- 🎧 **Remix & Repaint** — restyle or regenerate slices of existing audio
+- 🎛️ **Complete studio controls** — BPM, key, time signature, guidance, seed, batch
+- 🤖 **LLM-assisted** — 5Hz LM enhances captions and lyrics for you
+- 🎼 **Live progress** — real-time job status while the model works
+- 🗂️ **Local history & library** — every take saved, playable, downloadable
 
-## ✨ Features
+No command line. No Gradio quirks. Just open a browser and make music.
 
-<p align="center">
-    <img src="./assets/application_map.png" width="100%" alt="ACE-Step Framework">
-</p>
+---
 
-### ⚡ Performance
-- ✅ **Ultra-Fast Generation** — Under 2s per full song on A100, under 10s on RTX 3090 (0.5s to 10s on A100 depending on think mode & diffusion steps)
-- ✅ **Flexible Duration** — Supports 10 seconds to 10 minutes (600s) audio generation
-- ✅ **Batch Generation** — Generate up to 8 songs simultaneously
+## 📸 Screenshots
 
-### 🎵 Generation Quality
-- ✅ **Commercial-Grade Output** — Quality beyond most commercial music models (between Suno v4.5 and Suno v5)
-- ✅ **Rich Style Support** — 1000+ instruments and styles with fine-grained timbre description
-- ✅ **Multi-Language Lyrics** — Supports 50+ languages with lyrics prompt for structure & style control
+### Studio — the main workspace
+The big animated hero, mode selector, and the full composition form.
 
-### 🎛️ Versatility & Control
+![Studio](docs/screenshots/01-studio.png)
 
-| Feature | Description |
-|---------|-------------|
-| ✅ Reference Audio Input | Use reference audio to guide generation style |
-| ✅ Cover Generation | Create covers from existing audio |
-| ✅ Repaint & Edit | Selective local audio editing and regeneration |
-| ✅ Track Separation | Separate audio into individual stems |
-| ✅ Multi-Track Generation | Add layers like Suno Studio's "Add Layer" feature |
-| ✅ Vocal2BGM | Auto-generate accompaniment for vocal tracks |
-| ✅ Metadata Control | Control duration, BPM, key/scale, time signature |
-| ✅ Simple Mode | Generate full songs from simple descriptions |
-| ✅ Query Rewriting | Auto LM expansion of tags and lyrics |
-| ✅ Audio Understanding | Extract BPM, key/scale, time signature & caption from audio |
-| ✅ LRC Generation | Auto-generate lyric timestamps for generated music |
-| ✅ LoRA Training | One-click annotation & training in Gradio. 8 songs, 1 hour on 3090 (12GB VRAM) |
-| ✅ Quality Scoring | Automatic quality assessment for generated audio |
+### Settings — backend, defaults, local data
+Wire the backend, configure defaults, and clear local history.
 
-## 🔔 Staying ahead
-Star ACE-Step on GitHub and be instantly notified of new releases
-![](assets/star.gif)
+![Settings](docs/screenshots/03-settings.png)
 
-## 🤝 Partners
+### History & Library — everything you've made
+Every generation is saved locally and playable in place.
 
-<p align="center">
-    <a href="https://www.comfy.org/"><img src="https://registry.comfy.org/_next/static/media/logo_blue.9ac227d3.png" alt="ComfyUI" height="40" style="margin: 5px;"></a>
-    <a href="https://zilliz.com/"><img src="https://avatars.githubusercontent.com/u/18416694" alt="Zilliz" height="40" style="margin: 5px;"></a>
-    <a href="https://milvus.io/"><img src="https://miro.medium.com/v2/resize:fit:2400/1*-VEGyAgcIBD62XtZWavy8w.png" alt="Milvus" height="40" style="margin: 5px;"></a>
-    <a href="https://zeabur.com/"><img src="https://zeabur.notion.site/image/attachment%3A43bc244b-9a2d-4b96-9646-8392aa6fc862%3Alogo-dark_1.svg?table=block&id=318a221c-948e-8056-b3c0-f9c39ce543ba&spaceId=ba37aeb9-0937-401d-aa41-ce1d3b6ff778&userId=&cache=v2" alt="Zeabur" height="40" width="40" style="margin: 5px;"></a>
-    <a href="https://majiks.studio"><img src="https://raw.githubusercontent.com/Majiks-Studio/majiks-brand-kit/main/logos/app-icon/png/app-icon-128.png" alt="Majik's Music Studio" height="40" width="40" style="margin: 5px;"></a>
-</p>
+![History](docs/screenshots/02-history.png)
+![Library](docs/screenshots/04-library.png)
 
-## ⚡ Quick Start
+### About — honest notes on limits
+Version, credits, and what the tool can and can't do.
 
-> 🎵 **Don't want to install locally? Try [acemusic.ai](https://acemusic.ai) — 100% free, no GPU required!**
+![About](docs/screenshots/05-about.png)
 
-> **Requirements:** Python 3.11-3.12, CUDA GPU recommended (also supports MPS / ROCm / Intel XPU / CPU)
-> 
-> **Note:** ROCm on Windows requires Python 3.12 (AMD officially provides Python 3.12 wheels only)
+### Fully responsive
+Works on mobile — sidebar collapses to a drawer.
+
+<img src="docs/screenshots/06-mobile-studio.png" alt="Mobile view" width="320">
+
+---
+
+## 🚀 Quick start
+
+**One command runs everything:**
 
 ```bash
-# 1. Install uv
-curl -LsSf https://astral.sh/uv/install.sh | sh          # macOS / Linux
-# powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"  # Windows
-
-# 2. Clone & install
-git clone https://github.com/ACE-Step/ACE-Step-1.5.git
-cd ACE-Step-1.5
-uv sync
-
-# 3. Launch Gradio UI (models auto-download on first run)
-uv run acestep
-
-# Or launch REST API server
-uv run acestep-api
+./start.sh
 ```
 
-Open http://localhost:7860 (Gradio) or http://localhost:8001 (API).
+That's it. The script:
 
-> 📦 **Windows users:** A [portable package](https://files.acemusic.ai/acemusic/win/ACE-Step-1.5.7z) with pre-installed dependencies is available. See [Installation Guide](./docs/en/INSTALL.md#-windows-portable-package).
+1. Boots the FastAPI backend (`start_api_server_macos.sh` on macOS, `.sh` on Linux, `.bat` on Windows)
+2. Waits for `/health` to respond
+3. Installs `frontend/` dependencies on first run (auto-detects Node 18+)
+4. Boots the Vite dev server on `http://localhost:5173`
+5. Streams both process logs to the terminal
+6. On `Ctrl-C`, cleanly stops both
 
-> 📦 **MacOS users:** A [portable package](https://files.acemusic.ai/acemusic/mac/ACE-Step-1.5.zip) with pre-installed dependencies is available. See [Installation Guide](./docs/en/INSTALL.md#-macos-portable-package).
+Then open **[http://localhost:5173](http://localhost:5173)** in your browser.
 
-> 📖 **Full installation guide** (AMD/ROCm, Intel GPU, CPU, environment variables, command-line options): [English](./docs/en/INSTALL.md) | [中文](./docs/zh/INSTALL.md) | [日本語](./docs/ja/INSTALL.md)
-
-### 💡 Which Model Should I Choose?
-
-| Your GPU VRAM | Recommended DiT | Recommended LM Model | Backend | Notes |
-|---------------|----------------|---------------------|---------|-------|
-| **≤6GB** | 2B turbo | None (DiT only) | — | LM disabled by default; INT8 quantization + full CPU offload |
-| **6-8GB** | 2B turbo | `acestep-5Hz-lm-0.6B` | `pt` | Lightweight LM with PyTorch backend |
-| **8-16GB** | 2B turbo/sft | `acestep-5Hz-lm-0.6B` / `1.7B` | `vllm` | 0.6B for 8-12GB, 1.7B for 12-16GB |
-| **16-20GB** | 2B sft or XL turbo | `acestep-5Hz-lm-1.7B` | `vllm` | XL requires CPU offload below 20GB |
-| **20-24GB** | XL turbo/sft | `acestep-5Hz-lm-1.7B` | `vllm` | XL fits without offload; 4B LM available |
-| **≥24GB** | XL sft (or xl-base for extract/lego/complete) | `acestep-5Hz-lm-4B` | `vllm` | Best quality, all models fit without offload |
-
-> **XL (4B) models** (`acestep-v15-xl-*`) offer higher audio quality with ~9GB VRAM for weights (vs ~4.7GB for 2B). They require ≥12GB VRAM (with offload + quantization) or ≥20GB (without offload). All LM models are fully compatible with XL.
-
-The UI automatically selects the best configuration for your GPU. All settings (LM model, backend, offloading, quantization) are tier-aware and pre-configured.
-
-> 📖 GPU compatibility details: [English](./docs/en/GPU_COMPATIBILITY.md) | [中文](./docs/zh/GPU_COMPATIBILITY.md) | [日本語](./docs/ja/GPU_COMPATIBILITY.md) | [한국어](./docs/ko/GPU_COMPATIBILITY.md)
-
-## 🚀 Launch Scripts
-
-Ready-to-use launch scripts for all platforms with auto environment detection, update checking, and dependency installation.
-
-| Platform | Scripts | Backend |
-|----------|---------|---------|
-| **Windows** | `start_gradio_ui.bat`, `start_api_server.bat` | CUDA |
-| **Windows (ROCm)** | `start_gradio_ui_rocm.bat`, `start_api_server_rocm.bat` | AMD ROCm |
-| **Linux** | `start_gradio_ui.sh`, `start_api_server.sh` | CUDA |
-| **macOS** | `start_gradio_ui_macos.sh`, `start_api_server_macos.sh` | MLX (Apple Silicon) |
+### Manual start (if you prefer)
 
 ```bash
-# Windows
-start_gradio_ui.bat
+# Terminal 1 — backend
+./start_api_server_macos.sh     # or start_api_server.sh / start_api_server.bat
 
-# Linux
-chmod +x start_gradio_ui.sh && ./start_gradio_ui.sh
-
-# macOS (Apple Silicon)
-chmod +x start_gradio_ui_macos.sh && ./start_gradio_ui_macos.sh
+# Terminal 2 — frontend
+cd frontend
+cp .env.example .env.local      # adjust VITE_API_URL if backend is not on :8001
+npm install
+npm run dev                     # http://localhost:5173
 ```
 
-### ⚙️ Customizing Launch Settings
-
-**Recommended:** Create a `.env` file to customize models, ports, and other settings. Your `.env` configuration will survive repository updates.
+### Environment overrides
 
 ```bash
-# Copy the example file
-cp .env.example .env
-
-# Edit with your preferred settings
-# Examples in .env:
-ACESTEP_CONFIG_PATH=acestep-v15-turbo
-ACESTEP_LM_MODEL_PATH=acestep-5Hz-lm-1.7B
-PORT=7860
-LANGUAGE=en
+RAJ_BACKEND_PORT=8010 ./start.sh          # different backend port
+RAJ_FRONTEND_PORT=3000 ./start.sh         # different frontend port
+RAJ_SKIP_BACKEND=1  ./start.sh            # just the UI (backend already running)
+RAJ_SKIP_FRONTEND=1 ./start.sh            # just the API
+RAJ_BACKEND_SCRIPT=./start_api_server_rocm.sh ./start.sh  # custom launcher
 ```
 
-> 📖 **Script configuration & customization:** [English](./docs/en/INSTALL.md#-launch-scripts) | [中文](./docs/zh/INSTALL.md#-启动脚本) | [日本語](./docs/ja/INSTALL.md#-起動スクリプト)
+---
 
-## 📚 Documentation
+## 🎨 Features at a glance
 
-### Usage Guides
+| Feature | Where | What it does |
+|---|---|---|
+| **Simple mode** | Studio → Simple | Type a description, LM drafts caption + lyrics + metadata |
+| **Custom mode** | Studio → Custom | Full manual control — the default power-user mode |
+| **Remix mode** | Studio → Remix | Upload a track, describe a new style, model restyles it |
+| **Repaint mode** | Studio → Repaint | Upload a track, regenerate a specific time range |
+| **Waveform preview** | Any audio slot | Canvas-rendered mini waveform after upload / record |
+| **Mic recording** | Any audio slot | Record directly from your mic (uses `MediaRecorder`) |
+| **Drag-and-drop upload** | Any audio slot | Drop `.mp3/.wav/.flac/.ogg/.m4a` files (≤50 MB) |
+| **Analyze audio** | Remix/Repaint mode | Detects BPM, key, duration and splashes them into the form |
+| **Enhance caption / lyrics** | Studio form | Runs your text through the 5Hz LM for a quality bump |
+| **Create sample** | Simple mode | Turns a description into caption+lyrics+metadata via LM |
+| **Auto badges** | Optional params | Visual hint showing which fields are auto-inferred |
+| **Reset all to Auto** | Optional params | One click clears BPM/Key/TimeSig/Duration/Language |
+| **LM code hints** | Advanced | Think, AutoGen, Enhance-input, Retake, Edit toggles |
+| **Live progress** | Right panel | Queue position → progress % → stage → elapsed |
+| **Cancel / stop watching** | Right panel | Aborts client polling (server has no cancel — noted honestly) |
+| **Audio player** | Result card | HTML5 `<audio>` with seek, volume, download |
+| **Regenerate / Reuse settings** | Result card | One-click retry with same or restored parameters |
+| **Local history & library** | Sidebar | Every run saved to `localStorage`, playable and downloadable |
+| **Health-aware status pill** | Header | Pulses green when backend is up, red with tooltip when down |
+| **Reduced-motion aware** | Global | All animations respect `prefers-reduced-motion` |
+| **Fully responsive** | Global | Mobile drawer sidebar, tablet and desktop layouts |
 
-| Method | Description | Documentation |
-|--------|-------------|---------------|
-| 🖥️ **Gradio Web UI** | Interactive web interface for music generation | [Guide](./docs/en/GRADIO_GUIDE.md) |
-| 🧭 **UI Support Baseline** | Supported UI boundary and future UI parity checklist | [Guide](./docs/en/UI_SUPPORT.md) |
-| 🎛️ **VST3 Plugin** | Standalone VST3 plugin (C++/GGML) for DAW integration | [acestep.vst3](https://github.com/ace-step/acestep.vst3) |
-| 🐍 **Python API** | Programmatic access for integration | [Guide](./docs/en/INFERENCE.md) |
-| 🌐 **REST API** | HTTP-based async API for services | [Guide](./docs/en/API.md) |
-| ⌨️ **CLI** | Interactive wizard and configuration | [Guide](./docs/en/CLI.md) |
-
-### Setup & Configuration
-
-| Topic | Documentation |
-|-------|---------------|
-| 📦 Installation (all platforms) | [English](./docs/en/INSTALL.md) \| [中文](./docs/zh/INSTALL.md) \| [日本語](./docs/ja/INSTALL.md) |
-| 🎮 GPU Compatibility | [English](./docs/en/GPU_COMPATIBILITY.md) \| [中文](./docs/zh/GPU_COMPATIBILITY.md) \| [日本語](./docs/ja/GPU_COMPATIBILITY.md) |
-| 🔧 GPU Troubleshooting | [English](./docs/en/GPU_TROUBLESHOOTING.md) |
-| 🔬 Benchmark & Profiling | [English](./docs/en/BENCHMARK.md) \| [中文](./docs/zh/BENCHMARK.md) |
-
-### Multi-Language Docs
-
-| Language | API | Gradio | Inference | Tutorial | LoRA Training | Install | Benchmark |
-|----------|-----|--------|-----------|----------|---------------|---------|-----------|
-| 🇺🇸 English | [Link](./docs/en/API.md) | [Link](./docs/en/GRADIO_GUIDE.md) | [Link](./docs/en/INFERENCE.md) | [Link](./docs/en/Tutorial.md) | [Link](./docs/en/LoRA_Training_Tutorial.md) | [Link](./docs/en/INSTALL.md) | [Link](./docs/en/BENCHMARK.md) |
-| 🇨🇳 中文 | [Link](./docs/zh/API.md) | [Link](./docs/zh/GRADIO_GUIDE.md) | [Link](./docs/zh/INFERENCE.md) | [Link](./docs/zh/Tutorial.md) | [Link](./docs/zh/LoRA_Training_Tutorial.md) | [Link](./docs/zh/INSTALL.md) | [Link](./docs/zh/BENCHMARK.md) |
-| 🇯🇵 日本語 | [Link](./docs/ja/API.md) | [Link](./docs/ja/GRADIO_GUIDE.md) | [Link](./docs/ja/INFERENCE.md) | [Link](./docs/ja/Tutorial.md) | [Link](./docs/ja/LoRA_Training_Tutorial.md) | [Link](./docs/ja/INSTALL.md) | — |
-| 🇰🇷 한국어 | [Link](./docs/ko/API.md) | [Link](./docs/ko/GRADIO_GUIDE.md) | [Link](./docs/ko/INFERENCE.md) | [Link](./docs/ko/Tutorial.md) | [Link](./docs/ko/LoRA_Training_Tutorial.md) | — | — |
-
-## 📖 Tutorial
-
-**🎯 Must Read:** Comprehensive guide to ACE-Step 1.5's design philosophy and usage methods.
-
-| Language | Link |
-|----------|------|
-| 🇺🇸 English | [English Tutorial](./docs/en/Tutorial.md) |
-| 🇨🇳 中文 | [中文教程](./docs/zh/Tutorial.md) |
-| 🇯🇵 日本語 | [日本語チュートリアル](./docs/ja/Tutorial.md) |
-
-This tutorial covers: mental models and design philosophy, model architecture and selection, input control (text and audio), inference hyperparameters, random factors and optimization strategies.
-
-## 🔨 Train
-
-📖 **LoRA Training Tutorial** — step-by-step guide covering data preparation, annotation, preprocessing, and training:
-
-| Language | Link |
-|----------|------|
-| 🇺🇸 English | [LoRA Training Tutorial](./docs/en/LoRA_Training_Tutorial.md) |
-| 🇨🇳 中文 | [LoRA 训练教程](./docs/zh/LoRA_Training_Tutorial.md) |
-| 🇯🇵 日本語 | [LoRA トレーニングチュートリアル](./docs/ja/LoRA_Training_Tutorial.md) |
-| 🇰🇷 한국어 | [LoRA 학습 튜토리얼](./docs/ko/LoRA_Training_Tutorial.md) |
-
-See also the **LoRA Training** tab in Gradio UI for one-click training, or [Gradio Guide - LoRA Training](./docs/en/GRADIO_GUIDE.md#lora-training) for UI reference.
-
-🔧 **Advanced Training with [Side-Step](https://github.com/koda-dernet/Side-Step)** — CLI-based training toolkit with corrected timestep sampling, LoKR adapters, VRAM optimization, gradient sensitivity analysis, and more. See the [Side-Step documentation](./docs/sidestep/Getting%20Started.md).
+---
 
 ## 🏗️ Architecture
 
-<p align="center">
-    <img src="./assets/ACE-Step_framework.png" width="100%" alt="ACE-Step Framework">
-</p>
+```
+┌────────────────────┐    HTTP    ┌───────────────────────────┐
+│  Raj Studio (SPA)  │ ─────────▶ │  ACE-Step FastAPI backend │
+│  React + Vite      │            │  (acestep/api_server.py)  │
+│  localhost:5173    │ ◀───────── │  localhost:8001           │
+└────────────────────┘   JSON     └───────────────────────────┘
+        │                                    │
+        ▼                                    ▼
+  Local history                       PyTorch / MLX / vLLM
+  (localStorage)                      ACE-Step DiT + 5Hz LM
+```
 
-## 🦁 Model Zoo
+**Endpoints consumed** (see [`frontend/src/api/client.ts`](frontend/src/api/client.ts)):
 
-<p align="center">
-    <img src="./assets/model_zoo.png" width="100%" alt="Model Zoo">
-</p>
+| Endpoint | Purpose |
+|---|---|
+| `GET  /health`                 | Header status pill, About page |
+| `GET  /v1/models`              | Available in client for future model picker |
+| `POST /release_task`           | Studio → Generate (JSON or multipart with audio) |
+| `POST /query_result`           | Poll task status every 1.5s until terminal |
+| `GET  /v1/audio?path=...`      | Stream generated audio files |
+| `POST /create_random_sample`   | "Random sample" button |
+| `POST /format_input`           | "Enhance caption / lyrics" buttons |
+| `POST /v1/create_sample`       | Simple-mode "Create sample from description" |
 
-### DiT Models
+The request payload mirrors [`GenerateMusicRequest`](acestep/api/http/release_task_models.py) exactly — types live in [`frontend/src/types/api.ts`](frontend/src/types/api.ts).
 
-| DiT Model | Pre-Training | SFT | RL | CFG | Step | Refer audio | Text2Music | Cover | Repaint | Extract | Lego | Complete | Quality | Diversity | Fine-Tunability | Hugging Face |
-|-----------|:------------:|:---:|:--:|:---:|:----:|:-----------:|:----------:|:-----:|:-------:|:-------:|:----:|:--------:|:-------:|:---------:|:---------------:|--------------|
-| `acestep-v15-base` | ✅ | ❌ | ❌ | ✅ | 50 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | Medium | High | Easy | [Link](https://huggingface.co/ACE-Step/acestep-v15-base) |
-| `acestep-v15-sft` | ✅ | ✅ | ❌ | ✅ | 50 | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | High | Medium | Easy | [Link](https://huggingface.co/ACE-Step/acestep-v15-sft) |
-| `acestep-v15-turbo` | ✅ | ✅ | ❌ | ❌ | 8 | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | Very High | Medium | Medium | [Link](https://huggingface.co/ACE-Step/Ace-Step1.5) |
+---
 
-### XL (4B) DiT Models
+## 📁 Project structure
 
-> XL models use a larger 4B-parameter DiT decoder (~9GB bf16) for higher audio quality. They require ≥12GB VRAM (with offload + quantization) or ≥20GB (without offload). All LM models are fully compatible.
+```
+Raj-studio/
+├── frontend/                     # ⭐ Raj Studio SPA
+│   ├── src/
+│   │   ├── api/                  # Typed HTTP client + polling helper
+│   │   ├── components/           # HeroBanner, ModeSelector, AudioSlot, WaveformThumb, TopBanner, …
+│   │   ├── hooks/                # useSettings, useHistory, useBackendStatus
+│   │   ├── lib/                  # Constants, formatting, cn()
+│   │   ├── pages/                # Studio, Projects, History, Library, Settings, About
+│   │   ├── styles/               # Tailwind base + component layers
+│   │   └── types/                # GenerateMusicRequest, QueryResult, …
+│   ├── Dockerfile                # Multi-stage Vite build → Nginx
+│   ├── nginx.conf                # SPA fallback + cache headers
+│   └── README.md                 # Frontend-specific docs
+│
+├── acestep/                      # ACE-Step V1.5 backend (upstream)
+│   ├── api_server.py             # FastAPI entry
+│   ├── api/                      # Routes: /release_task, /query_result, /health, …
+│   ├── inference.py, handler.py  # Model orchestration
+│   └── …                         # Model, dataset, training, UI code
+│
+├── docs/
+│   ├── screenshots/              # README screenshots (this file)
+│   ├── raj-studio-user-guide.pdf # 20-page user guide
+│   └── ACE-Step-README.md        # Original ACE-Step upstream README
+│
+├── .github/workflows/frontend.yml  # CI: lint + typecheck + build the frontend
+├── docker-compose.raj-studio.yml   # Full-stack compose (backend + frontend)
+├── docker-compose.yml              # Backend-only compose (upstream)
+├── start.sh                        # ⭐ One-command launcher
+├── start_api_server_macos.sh       # Backend launcher (Apple Silicon / MLX)
+├── start_api_server.sh             # Backend launcher (Linux / CUDA)
+└── start_api_server.bat            # Backend launcher (Windows)
+```
 
-| DiT Model | Pre-Training | SFT | RL | CFG | Step | Refer audio | Text2Music | Cover | Repaint | Extract | Lego | Complete | Quality | Diversity | Fine-Tunability | Hugging Face |
-|-----------|:------------:|:---:|:--:|:---:|:----:|:-----------:|:----------:|:-----:|:-------:|:-------:|:----:|:--------:|:-------:|:---------:|:---------------:|--------------|
-| `acestep-v15-xl-base` | ✅ | ❌ | ❌ | ✅ | 50 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | High | High | Easy | [Link](https://huggingface.co/ACE-Step/acestep-v15-xl-base) |
-| `acestep-v15-xl-sft` | ✅ | ✅ | ❌ | ✅ | 50 | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | Very High | Medium | Easy | [Link](https://huggingface.co/ACE-Step/acestep-v15-xl-sft) |
-| `acestep-v15-xl-turbo` | ✅ | ✅ | ❌ | ❌ | 8 | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | Very High | Medium | Medium | [Link](https://huggingface.co/ACE-Step/acestep-v15-xl-turbo) |
+---
 
-### LM Models
+## ⚙️ Configuration
 
-| LM Model | Pretrain from | Pre-Training | SFT | RL | CoT metas | Query rewrite | Audio Understanding | Composition Capability | Copy Melody | Hugging Face |
-|----------|---------------|:------------:|:---:|:--:|:---------:|:-------------:|:-------------------:|:----------------------:|:-----------:|--------------|
-| `acestep-5Hz-lm-0.6B` | Qwen3-0.6B | ✅ | ✅ | ✅ | ✅ | ✅ | Medium | Medium | Weak | ✅ |
-| `acestep-5Hz-lm-1.7B` | Qwen3-1.7B | ✅ | ✅ | ✅ | ✅ | ✅ | Medium | Medium | Medium | ✅ |
-| `acestep-5Hz-lm-4B` | Qwen3-4B | ✅ | ✅ | ✅ | ✅ | ✅ | Strong | Strong | Strong | ✅ |
+### Frontend (`frontend/.env.local`)
 
-## 🔬 Benchmark
+| Variable        | Default                  | Purpose                                                       |
+| --------------- | ------------------------ | ------------------------------------------------------------- |
+| `VITE_API_URL`  | `http://127.0.0.1:8001`  | ACE-Step backend base URL                                     |
+| `VITE_API_KEY`  | *(empty)*                | Optional bearer, only if backend was launched with `ACESTEP_API_KEY` |
+| `VITE_REPO_URL` | *(empty)*                | Shown as GitHub button in the header when set                 |
 
-ACE-Step 1.5 includes `profile_inference.py`, a profiling & benchmarking tool that measures LLM, DiT, and VAE timing across devices and configurations.
+Copy [`frontend/.env.example`](frontend/.env.example) to `frontend/.env.local` — the `start.sh` script does this automatically on first run.
+
+### Backend
+
+The Python service reads its own `.env` and CLI args. See [`docs/ACE-Step-README.md`](docs/ACE-Step-README.md) for the full ACE-Step configuration reference (device, model paths, VRAM tiers, LM backends).
+
+---
+
+## 📖 User guide
+
+A polished 20-page PDF walkthrough lives in [`docs/raj-studio-user-guide.pdf`](docs/raj-studio-user-guide.pdf). It covers:
+
+1. The interface, region by region
+2. When to use Simple / Custom / Remix / Repaint mode
+3. Every field, in plain English
+4. Your first generation in 90 seconds
+5. **The lyrics-first workflow** — how to get tight beats from any lyrics
+6. **A best-in-class recommended preset** for high-quality MP3 output
+7. Common problems and fixes
+8. Sidebar page reference
+9. Progression path: beginner to power user
+
+Recommended reading before you start creating tracks in anger.
+
+---
+
+## 🧑‍💻 Development
+
+### Frontend scripts
 
 ```bash
-python profile_inference.py                        # Single-run profile
-python profile_inference.py --mode benchmark       # Configuration matrix
+cd frontend
+npm run dev         # Vite dev server (HMR) on http://localhost:5173
+npm run typecheck   # Strict TypeScript project references
+npm run lint        # ESLint, max-warnings 0
+npm run build       # Type-check + production bundle to dist/
+npm run preview     # Serve the built bundle for smoke testing
 ```
 
-> 📖 **Full guide** (all modes, CLI options, output interpretation): [English](./docs/en/BENCHMARK.md) | [中文](./docs/zh/BENCHMARK.md)
+### CI
 
-## 📜 License & Disclaimer
+[`.github/workflows/frontend.yml`](.github/workflows/frontend.yml) runs lint, typecheck, and production build on every push or PR touching `frontend/`, and uploads the `dist/` bundle as an artifact.
 
-This project is licensed under [MIT](./LICENSE)
+### Docker
 
-ACE-Step enables original music generation across diverse genres, with applications in creative production, education, and entertainment. While designed to support positive and artistic use cases, we acknowledge potential risks such as unintentional copyright infringement due to stylistic similarity, inappropriate blending of cultural elements, and misuse for generating harmful content. To ensure responsible use, we encourage users to verify the originality of generated works, clearly disclose AI involvement, and obtain appropriate permissions when adapting protected styles or materials. By using ACE-Step, you agree to uphold these principles and respect artistic integrity, cultural diversity, and legal compliance. The authors are not responsible for any misuse of the model, including but not limited to copyright violations, cultural insensitivity, or the generation of harmful content.
+```bash
+# Full stack (frontend + backend). Requires GPU/MPS for the backend.
+docker compose -f docker-compose.raj-studio.yml up --build
 
-🔔 Important Notice  
-The only official website for the ACE-Step project is our GitHub Pages site.    
- We do not operate any other websites.  
-🚫 Fake domains include but are not limited to:
-ac\*\*p.com, a\*\*p.org, a\*\*\*c.org  
-⚠️ Please be cautious. Do not visit, trust, or make payments on any of those sites.
-
-## 🌐 Community & Ecosystem
-
-Check out **[Awesome ACE-Step](https://github.com/ace-step/awesome-ace-step)** — a curated list of community projects, alternative UIs, ComfyUI nodes, cloud deployments, training tools, and more built around ACE-Step.
-
-## 🙏 Acknowledgements
-
-This project is co-led by ACE Studio and StepFun.
-
-
-## 📖 Citation
-
-If you find this project useful for your research, please consider citing:
-
-```BibTeX
-@misc{gong2026acestep,
-	title={ACE-Step 1.5: Pushing the Boundaries of Open-Source Music Generation},
-	author={Junmin Gong, Yulin Song, Wenxiao Zhao, Sen Wang, Shengyuan Xu, Jing Guo}, 
-	howpublished={\url{https://github.com/ace-step/ACE-Step-1.5}},
-	year={2026},
-	note={GitHub repository}
-}
+# Frontend only
+cd frontend && docker build -t raj-studio-frontend .
+docker run -p 5173:80 raj-studio-frontend
 ```
+
+---
+
+## 🚢 Deployment
+
+- **Frontend** is a static SPA. Any host that serves `frontend/dist/` with SPA fallback works: Netlify, Vercel, Cloudflare Pages, S3+CloudFront, Nginx, or the included [`frontend/Dockerfile`](frontend/Dockerfile) (Nginx on port 80).
+- **Backend needs GPU/MPS/CPU** — GitHub Pages cannot host it. Options:
+  - Run locally and set `VITE_API_URL` to your LAN address
+  - Deploy to a GPU VM (Runpod, Lambda, Vast.ai, your own server) and point `VITE_API_URL` at its public URL
+- **CORS** — the backend currently allows `localhost` / `127.0.0.1` only. If you host the frontend on a different origin, add it to [`acestep/api/route_setup.py`](acestep/api/route_setup.py) (`allow_origins` list).
+
+---
+
+## 🔒 Security & privacy
+
+- No secrets are baked into the frontend bundle. The optional API key is read from `.env.local` (never committed) or from the Settings page and lives in the browser only.
+- Uploaded audio is validated by type and size (`≤ 50 MB`, common audio MIME types).
+- The backend already restricts `GET /v1/audio` to a whitelisted output directory.
+- History, projects, and library are stored in `localStorage` — nothing is sent to a third party.
+
+---
+
+## 🐛 Known limitations
+
+- **No server-side cancel** — the ACE-Step backend has no cancel endpoint. "Stop watching" aborts client polling only; the job continues on the server.
+- **Local-only history** — projects, history, and library live in `localStorage`. Clearing site data wipes them (audio files themselves stay on the backend).
+- **LLM features** — Enhance / Think / AutoGen need the 5Hz LM. Set `ACESTEP_INIT_LLM=true` when starting the backend if it isn't loaded — the UI surfaces the backend's own error message when it isn't.
+
+---
+
+## 🙏 Credits
+
+- **Raj Studio** — frontend, integration, launcher, docs — **[Rajeshwar Singh](https://github.com/Rajeshwar40)**
+- **ACE-Step V1.5** — the underlying music-generation model — **[ACE-Step team](https://github.com/ace-step)**
+  ([Project site](https://ace-step.github.io/ace-step-v1.5.github.io/) · [Hugging Face](https://huggingface.co/ACE-Step/Ace-Step1.5) · [Paper](https://arxiv.org/abs/2602.00744))
+
+If you use Raj Studio in your work, please credit both.
+
+---
+
+## 📄 License
+
+Apache 2.0 — see [`LICENSE`](LICENSE). ACE-Step V1.5 upstream is Apache 2.0.
+
+---
+
+<div align="center">
+
+**Made with 🎧 by [Rajeshwar Singh](https://github.com/Rajeshwar40)**
+
+_Star ⭐ this repo if Raj Studio helps you make music you love._
+
+</div>

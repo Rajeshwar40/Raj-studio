@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-ink-950 text-ink-100 font-sans antialiased;
+    background-image:
+      radial-gradient(80rem 40rem at 20% -10%, rgba(139, 92, 246, 0.14), transparent 60%),
+      radial-gradient(60rem 30rem at 90% 10%, rgba(236, 72, 153, 0.10), transparent 60%);
+    background-attachment: fixed;
+  }
+  ::selection {
+    background: rgba(139, 92, 246, 0.45);
+    color: white;
+  }
+  *:focus-visible {
+    @apply outline-none ring-2 ring-brand-500/70 ring-offset-2 ring-offset-ink-950 rounded-md;
+  }
+  /* Slim scrollbars */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-ink-700 rounded-full border-2 border-transparent bg-clip-padding;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-ink-600;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-ink-850/70 backdrop-blur-xl border border-white/5;
+  }
+  .card {
+    @apply glass rounded-2xl shadow-card transition-all duration-200;
+  }
+  .card-interactive {
+    @apply card hover:border-brand-500/30 hover:shadow-glow hover:-translate-y-0.5;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium
+           transition-all duration-150 select-none disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply btn relative text-white bg-brand-gradient shadow-glow hover:brightness-110 active:brightness-95
+           active:scale-[0.98];
+  }
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(from var(--btn-angle, 0deg), #ec4899, #8b5cf6, #6366f1, #ec4899);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    animation: spinAngle 4s linear infinite;
+    opacity: 0.85;
+    pointer-events: none;
+  }
+  .btn-secondary {
+    @apply btn bg-ink-800 border border-white/5 text-ink-100 hover:bg-ink-700;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-ink-200 hover:bg-ink-800/80;
+  }
+  .input {
+    @apply w-full rounded-xl bg-ink-900/80 border border-white/5 px-3.5 py-2.5 text-sm text-ink-100
+           placeholder:text-ink-400/70 focus:border-brand-500/60 focus:outline-none focus:ring-2 focus:ring-brand-500/30
+           transition;
+  }
+  .label {
+    @apply text-xs font-medium uppercase tracking-wider text-ink-300;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium
+           bg-ink-800 border border-white/5 text-ink-200;
+  }
+  .divider {
+    @apply h-px bg-gradient-to-r from-transparent via-white/10 to-transparent;
+  }
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.02) 0%,
+      rgba(255, 255, 255, 0.10) 50%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    background-size: 200% 100%;
+    @apply animate-shimmer;
+  }
+}
+
+@property --btn-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spinAngle {
+  to { --btn-angle: 360deg; }
+}
+
+@keyframes waveBar {
+  0%, 100% { transform: scaleY(0.35); }
+  50%      { transform: scaleY(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer,
+  .animate-shimmer,
+  .animate-pulse-slow,
+  .animate-pulse,
+  .animate-ping,
+  .animate-spin {
+    animation: none !important;
+  }
+  .btn-primary::before { animation: none !important; }
+}

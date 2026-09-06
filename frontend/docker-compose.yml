@@ -1,0 +1,12 @@
+# Optional stand-alone compose for the frontend only.
+# For the full stack (backend + frontend), see docker-compose.raj-studio.yml at the repo root.
+services:
+  raj-studio-frontend:
+    build:
+      context: .
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://127.0.0.1:8001}
+    image: raj-studio-frontend:latest
+    ports:
+      - "5173:80"
+    restart: unless-stopped

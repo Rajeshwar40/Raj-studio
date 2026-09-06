@@ -1,0 +1,30 @@
+# Full-stack compose for Raj Studio (backend + web frontend).
+#
+# NOTE: The backend image inherits from `docker-compose.yml` at the repo root —
+# review that file for GPU requirements. Nothing here modifies the backend
+# container or its endpoints; it only adds the frontend as a second service.
+services:
+  backend:
+    extends:
+      file: docker-compose.yml
+      service: acestep
+    environment:
+      # Bind on 0.0.0.0 inside the container so the frontend can reach it.
+      ACESTEP_API_HOST: "0.0.0.0"
+      ACESTEP_API_PORT: "8001"
+    ports:
+      - "8001:8001"
+
+  raj-studio:
+    build:
+      context: ./frontend
+      args:
+        # Baked into the bundle; users of the deployed page hit the backend
+        # at this URL. Override with `VITE_API_URL=... docker compose build`.
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:8001}
+    image: raj-studio-frontend:latest
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+    restart: unless-stopped

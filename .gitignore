@@ -257,6 +257,14 @@ acestep_output/
 
 # VitePress / Node
 node_modules/
+
+# Raj Studio frontend
+frontend/dist/
+frontend/.vite/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+.raj-studio-logs/
 docs/.vitepress/dist/
 docs/.vitepress/cache/
 docs/en/awesome.md
