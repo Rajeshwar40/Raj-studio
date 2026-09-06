@@ -10,6 +10,9 @@ _Developed by [Rajeshwar Singh](https://github.com/Rajeshwar40)_
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 [![Frontend](https://img.shields.io/badge/frontend-React_18_·_TypeScript_·_Vite_·_Tailwind-8b5cf6)](frontend/)
 [![Backend](https://img.shields.io/badge/backend-FastAPI_·_ACE--Step_V1.5-6366f1)](acestep/api_server.py)
+[![Landing Page](https://img.shields.io/badge/🌐_Landing_Page-Live-ec4899?style=for-the-badge&logoColor=white)](https://rajeshwar40.github.io/Raj-studio/)
+
+### [🌐 Visit the Raj Studio landing page →](https://rajeshwar40.github.io/Raj-studio/)
 
 ![Raj Studio](docs/screenshots/01-studio.png)
 
@@ -319,5 +322,7 @@ Apache 2.0 — see [`LICENSE`](LICENSE). ACE-Step V1.5 upstream is Apache 2.0.
 **Made with 🎧 by [Rajeshwar Singh](https://github.com/Rajeshwar40)**
 
 _Star ⭐ this repo if Raj Studio helps you make music you love._
+
+[![🌐 Visit the Landing Page](https://img.shields.io/badge/🌐_Visit_the_Landing_Page-8b5cf6?style=for-the-badge&logoColor=white)](https://rajeshwar40.github.io/Raj-studio/)
 
 </div>
